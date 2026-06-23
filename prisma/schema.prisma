@@ -1,0 +1,27 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Preorder {
+  id              String    @id @default(cuid())
+  name            String
+  products        Int
+  preorderWhen    String    // "out-of-stock", "regardless-of-stock"
+  startsAt        DateTime
+  endsAt          DateTime?
+  status          Boolean   @default(true) // true = Active, false = Inactive
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([createdAt])
+  @@index([startsAt])
+  @@index([status])
+}
