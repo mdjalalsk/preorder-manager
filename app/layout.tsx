@@ -1,16 +1,16 @@
-import type { Metadata } from 'next'
-import { Toaster } from 'sonner'
-import './globals.css'
+import type { Metadata } from "next";
+import { Toaster } from "sonner";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: 'Preorder Manager',
-  description: 'Manage preorders efficiently',
-}
+  title: "Preorder Manager",
+  description: "Manage preorders efficiently",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -19,5 +19,5 @@ export default function RootLayout({
         <Toaster position="top-right" />
       </body>
     </html>
-  )
+  );
 }
