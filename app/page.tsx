@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { Suspense, useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
@@ -16,7 +16,7 @@ interface Preorder {
   createdAt: string;
 }
 
-export default function PreordersPage() {
+function PreordersPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -482,5 +482,21 @@ export default function PreordersPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function PreordersPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-gray-50 p-8">
+          <div className="max-w-7xl mx-auto">
+            <p className="text-gray-500">Loading...</p>
+          </div>
+        </div>
+      }
+    >
+      <PreordersPageContent />
+    </Suspense>
   );
 }
