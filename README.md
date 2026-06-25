@@ -15,90 +15,55 @@ A modern web application for managing product preorders with filtering, sorting,
 - Node.js v22 or higher
 - pnpm v9 or higher
 
-## Setup Instructions
+## How to Run Locally
 
-### 1. Install Dependencies
+### Quick Start Guide
 
-```bash
-pnpm install
-```
+Follow these steps to get the project running on your local machine:
 
-### 2. Configure Environment Variables
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd preorder-manager
+   ```
 
-Create a `.env.local` file in the root directory:
+2. **Install dependencies**
+   ```bash
+   pnpm install
+   ```
 
-```bash
-cp .env.example .env.local
-```
+3. **Set up environment variables**
+   ```bash
+   # Create .env.local file
+   echo 'DATABASE_URL="file:./prisma/dev.db"' > .env.local
+   ```
 
-If `.env.example` doesn't exist, create `.env.local` manually:
+4. **Initialize the database**
+   ```bash
+   pnpm exec prisma migrate dev
+   ```
 
-```bash
-touch .env.local
-```
+5. **Start the development server**
+   ```bash
+   pnpm dev
+   ```
 
-Add your environment variables to `.env.local`:
+6. **Open in browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-```env
-# Database URL (SQLite is the default)
-DATABASE_URL="file:./prisma/dev.db"
-```
+### Useful Commands
 
-**Note:** Never commit `.env.local` to version control. It's already listed in `.gitignore`.
+- **Run migrations:** `pnpm exec prisma migrate dev`
+- **Open Prisma Studio:** `pnpm exec prisma studio`
+- **Build for production:** `pnpm run build`
+- **Start production server:** `pnpm start`
 
-### 3. Set Up the Database
+### Development Tips
 
-The project uses Prisma with SQLite. The database will be automatically created at `./prisma/dev.db`.
-
-Initialize the database schema by running migrations:
-
-```bash
-pnpm exec prisma migrate dev
-```
-
-This will:
-
-- Create the SQLite database
-- Apply all migrations
-- Generate the Prisma Client
-
-### 4. Seed Sample Data (Optional)
-
-To populate the database with 8 sample preorder records, run:
-
-```bash
-pnpm exec node --input-type=module --eval "
-import { prisma } from './lib/db.js';
-
-async function main() {
-  await prisma.preorder.createMany({
-    data: [
-      { name: 'Multi variant 3', products: 1, preorderWhen: 'out-of-stock', startsAt: new Date('2025-12-15T08:24:00'), endsAt: null, status: false },
-      { name: 'Multi variant 2', products: 1, preorderWhen: 'regardless-of-stock', startsAt: new Date('2025-12-15T08:24:00'), endsAt: new Date('2025-12-15T08:27:00'), status: true },
-      { name: 'Multi variants 1', products: 1, preorderWhen: 'regardless-of-stock', startsAt: new Date('2025-12-15T08:24:00'), endsAt: null, status: true },
-      { name: 'Partial payment', products: 1, preorderWhen: 'regardless-of-stock', startsAt: new Date('2025-08-17T04:56:00'), endsAt: null, status: true },
-      { name: 'Shipping not sure', products: 1, preorderWhen: 'regardless-of-stock', startsAt: new Date('2025-08-17T04:56:00'), endsAt: null, status: true },
-      { name: 'Full payment', products: 1, preorderWhen: 'regardless-of-stock', startsAt: new Date('2025-08-17T04:56:00'), endsAt: null, status: true },
-      { name: 'Coming soon', products: 1, preorderWhen: 'regardless-of-stock', startsAt: new Date('2025-12-11T04:42:00'), endsAt: null, status: true },
-      { name: 'With ends', products: 1, preorderWhen: 'regardless-of-stock', startsAt: new Date('2025-08-14T03:59:00'), endsAt: null, status: true }
-    ]
-  });
-  console.log('Sample data created');
-  process.exit(0);
-}
-main().catch(e => { console.error(e); process.exit(1); });
-"
-```
-
-Or create preorders via the API after starting the dev server.
-
-### 5. Start the Development Server
-
-```bash
-pnpm dev
-```
-
-The application will be available at **http://localhost:3000**
+- Hot reload is enabled by default, so changes will be reflected immediately
+- The SQLite database file is created at `./prisma/dev.db`
+- Use Prisma Studio to view and manage database records: `pnpm exec prisma studio`
+- API routes are located in `app/api/` directory
 
 ## Project Structure
 
