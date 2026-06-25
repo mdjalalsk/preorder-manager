@@ -129,13 +129,14 @@ export default function PreordersPage() {
   };
 
   const deletePreorder = async (id: string) => {
-    toast((t) => (
+    let toastId: string | number;
+    toastId = toast.custom(() => (
       <div>
         <p>Are you sure you want to delete this preorder?</p>
         <div className="flex gap-2 mt-4">
           <button
             onClick={async () => {
-              toast.dismiss(t);
+              toast.dismiss(toastId);
               setDeleting(id);
               try {
                 const response = await fetch(`/api/preorders/${id}`, {
@@ -163,7 +164,7 @@ export default function PreordersPage() {
             Delete
           </button>
           <button
-            onClick={() => toast.dismiss(t)}
+            onClick={() => toast.dismiss(toastId)}
             className="px-3 py-1 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 text-sm"
           >
             Cancel

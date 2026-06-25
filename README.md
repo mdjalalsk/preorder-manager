@@ -22,28 +22,33 @@ A modern web application for managing product preorders with filtering, sorting,
 Follow these steps to get the project running on your local machine:
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd preorder-manager
    ```
 
 2. **Install dependencies**
+
    ```bash
    pnpm install
    ```
 
 3. **Set up environment variables**
+
    ```bash
    # Create .env.local file
    echo 'DATABASE_URL="file:./prisma/dev.db"' > .env.local
    ```
 
 4. **Initialize the database**
+
    ```bash
    pnpm exec prisma migrate dev
    ```
 
 5. **Start the development server**
+
    ```bash
    pnpm dev
    ```
